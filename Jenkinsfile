@@ -5,7 +5,7 @@ node {
    }
 
    stage(‘installation’){
-	  sh ’sudo su’
+	sh ’sudo su’
    	sh ‘cd /root/work/playbooks’
    	sh 'ansible-playbook master_playbook.yml'
    }
