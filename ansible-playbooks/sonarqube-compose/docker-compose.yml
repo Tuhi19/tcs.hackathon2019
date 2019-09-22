@@ -1,0 +1,7 @@
+version: "2"
+
+services:
+  nexus:
+    image: sonarqube
+    ports:
+      - "8083:9000"

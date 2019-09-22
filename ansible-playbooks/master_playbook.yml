@@ -1,0 +1,23 @@
+---
+
+- hosts: cicd
+  remote_user: root
+  sudo: yes
+  tasks:
+    - import_role:
+         name: cicd_role
+
+- hosts: nexus
+  remote_user: root
+  sudo: yes
+  tasks:
+    - import_role:
+         name: sonatype_role
+
+- hosts: sonarqube
+  remote_user: root
+  sudo: yes
+  tasks:
+    - import_role:
+         name: sonarqube_role
+

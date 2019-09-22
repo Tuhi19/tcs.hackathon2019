@@ -1,0 +1,47 @@
+---
+# tasks file for sonatype_role
+
+- name: Download GIT
+  command: 'yum install -y git'
+
+- name: Download wget
+  command: 'yum install -y wget'
+
+- name: Download Java
+  command: 'yum install -y java-1.8.0-openjdk'
+
+- name: Download python
+  command: 'yum install -y python'
+  command: 'yum -y install python-pip'
+
+- name: Download Docker
+  command: 'yum install -y docker'
+  command: 'systemctl enable docker.service'
+  command: 'systemctl start docker.service'
+
+- name: Download Docker-Compose
+  command: 'pip install docker'
+  command: 'pip install docker-compose'
+  command: 'yum install -y docker-compose'
+  command: 'pip install --upgrade pip'
+
+- name: Update linux
+  command: 'yum update'
+
+- name: Create directory if they don't exist
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /work
+    - /work/sonatype-compose
+
+- name: Copy file with owner and permissions 
+  copy: 
+     src: /root/work/sonatype-compose/docker-compose.yml 
+     dest: /work/sonatype-compose/
+     mode: '0755' 
+
+- name: Run the service defined in docker-compose.yml
+  docker_compose:
+    project_src: /work/sonatype-compose/
