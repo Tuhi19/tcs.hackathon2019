@@ -1,8 +1,8 @@
 node {
    stage('Preparation') { 
-      git url: 'https://github.com/Tuhi19/tcs.hackathon2019.git', branch: 'master'          
+      git url: 'https://github.com/Tuhi19/tcstest.git', branch: 'master'          
    }
-   stage('installation'){
+    stage('installation'){
 	sh 'ansible-playbook ansible-playbooks/master_playbook.yml'
    
    }
@@ -25,14 +25,14 @@ node {
    stage('Building image'){
        
        docker.withRegistry("http://35.225.187.141:8123/service/rest/v1","sonatypenexus"){
-           def customImage = docker.build("tcsdevopsgroup2/jenkins-pipeline-hackathon:1.${BUILD_NUMBER}")
+           def customImage = docker.build("devopslearner123/jenkins-pipeline-dockerizing:1.${BUILD_NUMBER}")
             customImage.push()
        }
    }
    stage('Pull and Run image'){
        
        docker.withRegistry("http://35.225.187.141:8123/service/rest/v1","sonatypenexus"){
-           def dockerImage = docker.image("tcsdevopsgroup2/jenkins-pipeline-hackathon:1.${BUILD_NUMBER}").withRun('-p 9080:8761','',{
+           def dockerImage = docker.image("devopslearner123/jenkins-pipeline-dockerizing:1.${BUILD_NUMBER}").withRun('-p 9080:8761','',{
                     sh 'sleep 1m'
                }
             )
