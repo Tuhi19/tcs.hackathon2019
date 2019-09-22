@@ -3,8 +3,7 @@ node {
       git url: 'https://github.com/Tuhi19/tcs.hackathon2019.git', branch: 'master'          
    }
    stage('installation'){
-	sh 'cd /root/work/playbooks'
-	sh 'ansible-playbook master_playbook.yml'
+	sh 'ansible-playbook ansible-playbooks/master_playbook.yml'
    
    }
    stage('Build') {
