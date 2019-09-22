@@ -2,6 +2,11 @@ node {
    stage('Preparation') { 
       git url: 'https://github.com/Tuhi19/tcs.hackathon2019.git', branch: 'master'          
    }
+   stage(‘installation’){
+	sh ’sudo su’
+   	sh ‘cd /root/work/playbooks’
+   	sh 'ansible-playbook master_playbook.yml'
+   }
    stage('Build') {
       sh 'mvn clean install'
    }
